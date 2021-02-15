@@ -12,7 +12,7 @@ def main():
 
 	# comment this out when to extract the whole sentences.
 	# This is for the quick analysis of what the statistic are.
-	data = random.sample(data, 100)
+	# data = random.sample(data, 100)
 
 	#initial printing to see what the structure of tacred_file for extraction
 	print(len(data))
