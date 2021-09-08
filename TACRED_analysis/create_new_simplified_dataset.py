@@ -95,7 +95,9 @@ def main():
 	#	4. The output of dataset in the format of TACRED.
 	# open all the input files
 	sentences = [line.strip("\n") for line in open(sys.argv[1], "r").readlines()]
-	info = [line.strip("\n").split("\t") for line in open(sys.argv[2], "r").readlines()]
+	# for and wiki-auto, we added lower()
+	# for ACCESS, NeuralText-pytorch removed lower() in info
+	info = [line.lower().strip("\n").split("\t") for line in open(sys.argv[2], "r").readlines()]
 	original = json.load(open(sys.argv[3], "r"))
 	# This will be a list of array of 3: [[POS, NER, DEPREL]]
 	pos_rels = [line.strip("\n").split("\t") for line in open(sys.argv[4], "r").readlines()]
@@ -106,11 +108,11 @@ def main():
 	assert len(original) == len(pos_rels)
 
 	# Initialize the cases so that we know if we want to add simplified data and its corresponding original
-	addSim = 1
-	addCorespOri = 0
+	addSim = 0
+	addCorespOri = 1
 	# Initialize the case here so that it know if we want to add Original sentences that does not have valid
 	# simplification (does not preserve th subj and obj)
-	addCompOri = 1
+	addCompOri = 0
 	# initialize holder 
 	simplified = [] 
 	# traverse each line of the input files to create samples of the new simplified dataset
